@@ -3,8 +3,15 @@
 package main
 
 import(
+	// #cgo darwin CFLAGS: -I ${SRCDIR}/XPSDK213/CHeaders -DAPL
+	// #cgo darwin LDFLAGS: -F ${SRCDIR}/XPSDK213/Libraries/Mac -framework XPLM
+	/*
+	// #include <XPLM/XPLMDataAccess.h>
+	*/
 	"C"
 	"unsafe"
+
+	"github.com/davidhinkes/xout/cutils"
 )
 
 func main() {
@@ -13,6 +20,9 @@ func main() {
 
 //export XPluginStart
 func XPluginStart(outName, outSig, outDesc *C.char) C.int{
+	cutils.Strcpy(unsafe.Pointer(outName), "xout")
+	cutils.Strcpy(unsafe.Pointer(outSig), "xout")
+	cutils.Strcpy(unsafe.Pointer(outDesc), "xout")
 	return C.int(1)
 }
 
@@ -25,7 +35,8 @@ func XPluginDisable() {
 }
 
 //export XPluginEnable
-func XPluginEnable() {
+func XPluginEnable() C.int {
+	return C.int(1)
 }
 
 //export XPluginReceiveMessage

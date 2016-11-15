@@ -6,12 +6,13 @@ import(
 	// #cgo darwin CFLAGS: -I ${SRCDIR}/XPSDK213/CHeaders -DAPL
 	// #cgo darwin LDFLAGS: -F ${SRCDIR}/XPSDK213/Libraries/Mac -framework XPLM
 	/*
-	// #include <XPLM/XPLMDataAccess.h>
+	#include <XPLM/XPLMDataAccess.h>
+	#include <XPLM/XPLMPlugin.h>
 	*/
 	"C"
 	"unsafe"
 
-	"github.com/davidhinkes/xout/cutils"
+	"github.com/davidhinkes/xout/internal/cutils"
 )
 
 func main() {

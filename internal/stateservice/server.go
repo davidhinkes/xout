@@ -47,6 +47,11 @@ func RunStateServer(listeners []net.Listener) error {
 		case req := <-incommingRequestsChan:
 			s.timestamp++
 			for name, value := range req.Mutations {
+				if entry, ok := s.entries[name]; ok {
+					if entry.value == value {
+						continue
+					}
+				}
 				s.entries[name] = entry{
 					lastUpdate: s.timestamp,
 					value:      value,
